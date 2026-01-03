@@ -10,6 +10,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # so that it searches inside the subfolders like 'cmake/' automatically
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/vendored/SDL3")
 find_package(SDL3 REQUIRED)
+
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/vendored/SDL3_image")
+find_package(SDL3_image REQUIRED)
+
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/vendored/SDL3_ttf")
+find_package(SDL3_ttf REQUIRED)
 # --------------- End: SDL ----------------
 
 
@@ -58,6 +64,8 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 target_link_libraries(${PROJECT_NAME} PRIVATE
         SDL3::SDL3-shared
         SDL3_mixer::SDL3_mixer
+        SDL3_image::SDL3_image-shared
+        SDL3_ttf::SDL3_ttf-shared
 )
 
 # Set the output directory for 'my_program'
@@ -110,6 +118,8 @@ if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
     set(REQUIRED_DLLS
             "${CMAKE_CURRENT_SOURCE_DIR}/vendored/SDL3/lib/x64/SDL3.dll"
             "${MIXER_BUILD}/SDL3_mixer.dll"
+            "${CMAKE_CURRENT_SOURCE_DIR}/vendored/SDL3_image/lib/x64/SDL3_image.dll"
+            "${CMAKE_CURRENT_SOURCE_DIR}/vendored/SDL3_ttf/lib/x64/SDL3_ttf.dll"
     )
 
     # 3. Create the Post-Build Command
